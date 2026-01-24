@@ -142,40 +142,39 @@ class Register(View):
     def post(self, request):
         data = request.POST
         try:
-            first_name = data.get("first_name")
-            last_name = data.get("last_name")
-            id_num = data.get("id_num")
-            phone_num = data.get("phone_num")
-            username = data.get("username")
-            password = data.get("password")
+            first_name = (data.get("first_name") or "").strip()
+            last_name  = (data.get("last_name") or "").strip()
+            username   = (data.get("username") or "").strip()
+            id_num_val = (data.get("id_num") or "").strip()
+            phone_val  = (data.get("phone_num") or "").strip()
+            password   = (data.get("password") or "").strip()
 
-            user = UserProfile.objects.filter(username=username).first()
-            id_num = UserProfile.objects.filter(id_num=id_num).first()
-            phone_num = UserProfile.objects.filter(phone_num=phone_num).first()
+            if not all([first_name, last_name, username, id_num_val, phone_val, password]):
+                raise ValueError("لطفاً همه فیلدهای ضروری را کامل کنید")
 
-            if user:
+            if UserProfile.objects.filter(username=username).exists():
                 raise ValueError("کاربر با این نام کاربری وجود دارد")
-            
-            if id_num:
+
+            if UserProfile.objects.filter(id_num=id_num_val).exists():
                 raise ValueError("کاربر با این کد ملی وجود دارد")
-        
-            if phone_num:
-                raise ValueError("کاربر بااین شماره تماس وجود دارد")
-            
+
+            if UserProfile.objects.filter(phone_num=phone_val).exists():
+                raise ValueError("کاربر با این شماره تماس وجود دارد")
+
             user = UserProfile.objects.create(
                 first_name=first_name,
                 last_name=last_name,
                 username=username,
                 password=password,
-                id_num=id_num,
-                phone_num=phone_num,
+                id_num=id_num_val,
+                phone_num=phone_val,
             )
 
             request.session["user_logged_in"] = True
             request.session["user_id"] = user.id
 
             return redirect("PRO:home")
-        
+
         except Exception as e:
             return render(
                 request,
