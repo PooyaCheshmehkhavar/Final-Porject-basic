@@ -143,8 +143,9 @@ footer{
 
 .form-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns: 1fr;
   gap:12px;
+  max-width:520px;
 }
 .field label{
   display:block;
@@ -207,6 +208,7 @@ footer{
     <div>
       <a href="{% url 'PRO:home' %}">خانه</a>
       <a href="{% url 'PRO:courses' %}">دوره‌ها</a>
+      <a href="{% url 'PRO:admin' %}">مدیریت</a>
       <a href="{% url 'PRO:logout' %}">خروج</a>
     </div>
     <div class="site-name">GreenCode</div>
@@ -297,11 +299,11 @@ footer{
               <div class="form-grid">
                 <div class="field">
                   <label>عنوان دوره</label>
-                  <input type="text" name="title" placeholder="مثلاً Python مقدماتی">
+                  <input type="text" name="title">
                 </div>
                 <div class="field">
                   <label>توضیحات کوتاه</label>
-                  <input type="text" name="description" placeholder="مثلاً شروع یادگیری پایتون">
+                  <input type="text" name="description">
                 </div>
               </div>
 

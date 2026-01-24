@@ -39,7 +39,7 @@ class Home(TemplateView):
         return ctx
 
 class Admin(TemplateView):
-    template_name = "PRO/admin_panel.html"
+    template_name = "PRO/admin.html"
 
     def dispatch(self, request, *args, **kwargs):
         if not request.session.get("user_logged_in"):
@@ -65,11 +65,11 @@ class Admin(TemplateView):
         if action == "update_profile":
             user_id = request.session.get("user_id")
             if not user_id:
-                return redirect("PRO:admin_panel")
+                return redirect("PRO:admin")
 
             profile = UserProfile.objects.filter(id=user_id).first()
             if not profile:
-                return redirect("PRO:admin_panel")
+                return redirect("PRO:admin")
 
             profile.first_name = request.POST.get("first_name", "").strip()
             profile.last_name = request.POST.get("last_name", "").strip()
@@ -77,7 +77,7 @@ class Admin(TemplateView):
             profile.phone_num = request.POST.get("phone_num", "").strip()
 
             profile.save()
-            return redirect("PRO:admin_panel")
+            return redirect("PRO:admin")
 
         if action == "add_course":
             title = request.POST.get("title", "").strip()
@@ -85,7 +85,7 @@ class Admin(TemplateView):
 
             if title:
                 Course.objects.create(title=title, description=description)
-            return redirect("PRO:admin_panel")
+            return redirect("PRO:admin")
 
         if action == "update_course":
             course_id = request.POST.get("course_id")
@@ -99,14 +99,14 @@ class Admin(TemplateView):
                 course.description = description
                 course.is_active = is_active
                 course.save()
-            return redirect("PRO:admin_panel")
+            return redirect("PRO:admin")
 
         if action == "delete_course":
             course_id = request.POST.get("course_id")
             Course.objects.filter(id=course_id).delete()
-            return redirect("PRO:admin_panel")
+            return redirect("PRO:admin")
 
-        return redirect("PRO:admin_panel")
+        return redirect("PRO:admin")
 
 
 class Courses(TemplateView):
