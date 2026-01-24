@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.views import View
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import UserProfile, Course
 
 class Index(View):
@@ -11,6 +12,7 @@ class Index(View):
             return redirect("PRO:login")
 
 
+
 class Home(TemplateView):
     template_name = 'PRO/home.html'
 
@@ -18,6 +20,23 @@ class Home(TemplateView):
         if not request.session.get("user_id"):
             return redirect("PRO:login")
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+
+        ctx["quick_courses"] = Course.objects.filter(is_active=True).order_by("-id")[:6]
+
+        q = (self.request.GET.get("q") or "").strip()
+        ctx["q"] = q
+
+        if q:
+            ctx["search_results"] = Course.objects.filter(is_active=True).filter(
+                Q(title__icontains=q) | Q(description__icontains=q)
+            ).order_by("-id")
+        else:
+            ctx["search_results"] = []
+
+        return ctx
 
 class Admin(TemplateView):
     template_name = "PRO/admin_panel.html"
@@ -94,9 +113,26 @@ class Courses(TemplateView):
     template_name = 'PRO/courses.html'
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.session.get("user_logged_in"):
+        if not request.session.get("user_id"):
             return redirect("PRO:login")
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+
+        q = (self.request.GET.get("q") or "").strip()
+        ctx["q"] = q
+
+        courses_qs = Course.objects.filter(is_active=True).order_by("-id")
+
+        if q:
+            courses_qs = courses_qs.filter(
+                Q(title__icontains=q) | Q(description__icontains=q)
+            )
+
+        ctx["courses"] = courses_qs
+
+        return ctx
     
 
 class Register(View):

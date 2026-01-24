@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -40,6 +41,37 @@ header{
   width:90%;
   margin:30px auto;
 }
+.search-box{
+  background:white;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:20px;
+}
+.search-box h2{
+  margin-top:0;
+  color:#20500b;
+}
+.search-box form{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+.search-box input{
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+.btn{
+  padding:10px 18px;
+  background:#64e627;
+  color:white;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+}
+.btn:hover{ opacity:0.9; }
+
 .courses{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -63,7 +95,17 @@ header{
 .course p{
   font-size:14px;
   margin:0;
+  color:#444;
 }
+
+.empty{
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+  color:#666;
+}
+
 footer{
   margin-top:40px;
   background:#64e627;
@@ -80,27 +122,47 @@ footer{
   <div class="header-card">
     <div>
       <a href="{% url 'PRO:home' %}">خانه</a>
+      <a href="{% url 'PRO:courses' %}">دوره‌ها</a>
+      <a href="{% url 'PRO:admin' %}">مدیریت</a>
+      <a href="{% url 'PRO:logout' %}">خروج</a>
     </div>
     <div class="site-name">GreenCode</div>
   </div>
 </header>
+
 <div class="main">
-  <h2 style="color:#20500b;">دوره‌ها</h2>
-  <div class="courses">
-    <div class="course"><h3>C++ مقدماتی</h3><p>شروع برنامه‌نویسی با C++</p></div>
-    <div class="course"><h3>C++ پیشرفته</h3><p>مفاهیم پیشرفته و حافظه</p></div>
-    <div class="course"><h3>C#</h3><p>برنامه‌نویسی شی‌ءگرا</p></div>
-    <div class="course"><h3>Python مقدماتی</h3><p>یادگیری پایه پایتون</p></div>
-    <div class="course"><h3>Python پیشرفته</h3><p>پروژه و ماژول‌ها</p></div>
-    <div class="course"><h3>HTML و CSS</h3><p>طراحی وب ساده</p></div>
-    <div class="course"><h3>الگوریتم</h3><p>تقویت منطق برنامه‌نویسی</p></div>
-    <div class="course"><h3>OOP</h3><p>مفاهیم شی‌ءگرایی</p></div>
-    <div class="course"><h3>SQL</h3><p>پایگاه داده</p></div>
-    <div class="course"><h3>پروژه عملی</h3><p>پیاده‌سازی پروژه</p></div>
+
+  <div class="search-box">
+    <h2>جستجوی دوره</h2>
+    <form method="get" action="{% url 'PRO:courses' %}">
+      <input type="text" name="q" value="{{ q }}" placeholder="مثلاً Python یا C++">
+      <button class="btn" type="submit">جستجو</button>
+    </form>
+    {% if q %}
+      <p style="color:#666; margin-top:10px;">نتیجه برای: <b>{{ q }}</b></p>
+    {% endif %}
   </div>
+
+  {% if courses %}
+  <div class="courses">
+    {% for c in courses %}
+      <div class="course">
+        <h3>{{ c.title }}</h3>
+        <p>{{ c.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <div class="empty">
+      هیچ دوره‌ای برای نمایش وجود ندارد.
+    </div>
+  {% endif %}
+
 </div>
+
 <footer>
   پروژه درس مهارت پایه
 </footer>
+
 </body>
 </html>

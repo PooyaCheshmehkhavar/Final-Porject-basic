@@ -88,6 +88,7 @@ header{
   padding:8px;
   border-radius:6px;
   border:1px solid #ccc;
+  box-sizing:border-box;
 }
 .btn{
   display:inline-block;
@@ -98,7 +99,26 @@ header{
   text-decoration:none;
   border-radius:20px;
   font-size:14px;
+  border:none;
+  cursor:pointer;
 }
+.btn:hover{ opacity:0.9; }
+
+.result-item{
+  border-bottom:1px solid #eee;
+  padding-bottom:10px;
+  margin-bottom:10px;
+}
+.result-title{
+  color:#20500b;
+  font-weight:bold;
+  margin-bottom:4px;
+}
+.result-desc{
+  color:#555;
+  font-size:14px;
+}
+
 footer{
   margin-top:40px;
   background:#64e627;
@@ -116,6 +136,7 @@ footer{
     <div>
       <a href="{% url 'PRO:home' %}">خانه</a>
       <a href="{% url 'PRO:courses' %}">دوره‌ها</a>
+      <a href="{% url 'PRO:admin' %}">مدیریت</a>
       <a href="{% url 'PRO:logout' %}">خروج</a>
     </div>
     <div class="site-name">GreenCode</div>
@@ -125,32 +146,55 @@ footer{
 <div class="main">
   <div class="sidebar">
     <h3>دسترسی سریع</h3>
-    <p>• C++ مقدماتی</p>
-    <p>• C#</p>
-    <p>• Python</p>
-    <p>• C++ پیشرفته</p>
-    <p>• طراحی وب</p>
-    <p>• js مقدماتی</p>
+
+    {% for c in quick_courses %}
+      <p>• {{ c.title }}</p>
+    {% empty %}
+      <p style="color:#666;">هیچ دوره‌ای ثبت نشده است.</p>
+    {% endfor %}
+
     <p>...</p>
-    <p> <a class="btn" href="{% url 'PRO:courses' %}">مشاهده دوره‌ها</a></p>
+    <p><a class="btn" href="{% url 'PRO:courses' %}">مشاهده دوره‌ها</a></p>
   </div>
 
   <div class="content">
     <div class="box">
       <h2>خوش آمدید</h2>
       <p>
-        GreenCode یک وب‌سایت  برای معرفی دوره‌های برنامه‌نویسی است.
-        برای شرکت هر چه سریعتر اقدام کنید .
+        GreenCode یک وب‌سایت برای معرفی دوره‌های برنامه‌نویسی است.
+        برای شرکت هر چه سریع‌تر اقدام کنید.
       </p>
     </div>
 
     <div class="box">
       <h2>جستجوی دوره</h2>
-      <div class="search">
-        <input type="text" placeholder="مثلاً Python یا C++">
-      </div>
-      <p style="color:#666; margin-top:8px;"></p>
+
+      <form class="search" method="get" action="{% url 'PRO:home' %}">
+        <input type="text" name="q" value="{{ q }}">
+        <button class="btn" type="submit">جستجو</button>
+      </form>
+
+      {% if q %}
+        <p style="color:#666; margin-top:8px;">نتیجه برای: <b>{{ q }}</b></p>
+      {% endif %}
     </div>
+
+    {% if q %}
+    <div class="box">
+      <h2>نتایج جستجو</h2>
+
+      {% if search_results %}
+        {% for c in search_results %}
+          <div class="result-item">
+            <div class="result-title">{{ c.title }}</div>
+            <div class="result-desc">{{ c.description }}</div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p style="color:#666;">هیچ دوره‌ای پیدا نشد.</p>
+      {% endif %}
+    </div>
+    {% endif %}
 
     <div class="box">
       <h2>نویسندگان</h2>
@@ -162,22 +206,18 @@ footer{
     <div class="box">
       <h2>درباره ما</h2>
       <p>
-        هدف این سایت کمک به دانشجویان برای  یادگیری برنامه‌نویسی از صفر تا صد است.
+        هدف این سایت کمک به دانشجویان برای یادگیری برنامه‌نویسی از صفر تا صد است.
         <br>
-        ما در این مجموعه تلاش کردیم تا بهترین خدمات را ارائه دهیم .
-        <br>
-        اگه به برنامه نویسی علاقه مندی ، اگه دنبال کار میگردی جای درستی اومدی .
+        ما در این مجموعه تلاش کردیم تا بهترین خدمات را ارائه دهیم.
       </p>
     </div>
 
     <div class="box">
       <h2>ارتباط با ما</h2>
       <p>
-        برای پیگیری سفارش ، مشاوره و راهنمایی میتوانید از راه های زیر با ما در ارتباط باشید.
+        ایمیل: Ariancheraghian@gmail.com
         <br>
-        ایمیل : Ariancheraghian@gmail.com
-        <br>
-        تلگرام : arian20ss
+        تلگرام: arian20ss
       </p>
     </div>
 
