@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>GreenCode</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Tahoma;
+  direction: rtl;
+  background:#eef2f0;
+  color:#222;
+}
+header{
+  background:#20500b;
+  padding:20px 0;
+}
+.header-card{
+  width:90%;
+  margin:auto;
+  background:#64e627;
+  color:20500b;
+  border-radius:14px;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.header-card a{
+  color:#20500b;
+  margin:0 10px;
+  text-decoration:none;
+  font-size:14px;
+}
+.header-card a:hover{
+  text-decoration:underline;
+}
+.site-name{
+  font-size:26px;
+  font-weight:bold;
+}
+.main{
+  width:90%;
+  margin:30px auto;
+  display:flex;
+  gap:20px;
+}
+.sidebar{
+  width:28%;
+  background:#ffffff;
+  border-radius:14px;
+  padding:20px;
+}
+.sidebar h3{
+  margin-top:0;
+  color:#20500b;
+}
+.sidebar p{
+  font-size:14px;
+  border-bottom:1px solid #eee;
+  padding-bottom:6px;
+}
+.content{
+  width:72%;
+}
+.box{
+  background:white;
+  border-radius:14px;
+  padding:22px;
+  margin-bottom:20px;
+}
+.box h2{
+  margin-top:0;
+  color:#20500b;
+  font-size:21px;
+}
+.box p{
+  font-size:15px;
+  line-height:1.8;
+}
+.search{
+  margin-top:10px;
+}
+.search input{
+  width:100%;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+.btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:10px 18px;
+  background:#64e627;
+  color:white;
+  text-decoration:none;
+  border-radius:20px;
+  font-size:14px;
+}
+footer{
+  margin-top:40px;
+  background:#64e627;
+  color:white;
+  text-align:center;
+  padding:16px;
+  font-size:13px;
+}
+</style>
+
+</head>
+<body>
+<header>
+  <div class="header-card">
+    <div>
+      <a href="{% url 'PRO:home' %}">خانه</a>
+      <a href="{% url 'PRO:courses' %}">دوره‌ها</a>
+      <a href="{% url 'PRO:logout' %}">خروج</a>
+    </div>
+    <div class="site-name">GreenCode</div>
+  </div>
+</header>
+
+<div class="main">
+  <div class="sidebar">
+    <h3>دسترسی سریع</h3>
+    <p>• C++ مقدماتی</p>
+    <p>• C#</p>
+    <p>• Python</p>
+    <p>• C++ پیشرفته</p>
+    <p>• طراحی وب</p>
+    <p>• js مقدماتی</p>
+    <p>...</p>
+    <p> <a class="btn" href="{% url 'PRO:courses' %}">مشاهده دوره‌ها</a></p>
+  </div>
+
+  <div class="content">
+    <div class="box">
+      <h2>خوش آمدید</h2>
+      <p>
+        GreenCode یک وب‌سایت  برای معرفی دوره‌های برنامه‌نویسی است.
+        برای شرکت هر چه سریعتر اقدام کنید .
+      </p>
+    </div>
+
+    <div class="box">
+      <h2>جستجوی دوره</h2>
+      <div class="search">
+        <input type="text" placeholder="مثلاً Python یا C++">
+      </div>
+      <p style="color:#666; margin-top:8px;"></p>
+    </div>
+
+    <div class="box">
+      <h2>نویسندگان</h2>
+      <p>آرین چراغیان</p>
+      <p>پویا چشمه خاور</p>
+      <p>هومن جعفری</p>
+    </div>
+
+    <div class="box">
+      <h2>درباره ما</h2>
+      <p>
+        هدف این سایت کمک به دانشجویان برای  یادگیری برنامه‌نویسی از صفر تا صد است.
+        <br>
+        ما در این مجموعه تلاش کردیم تا بهترین خدمات را ارائه دهیم .
+        <br>
+        اگه به برنامه نویسی علاقه مندی ، اگه دنبال کار میگردی جای درستی اومدی .
+      </p>
+    </div>
+
+    <div class="box">
+      <h2>ارتباط با ما</h2>
+      <p>
+        برای پیگیری سفارش ، مشاوره و راهنمایی میتوانید از راه های زیر با ما در ارتباط باشید.
+        <br>
+        ایمیل : Ariancheraghian@gmail.com
+        <br>
+        تلگرام : arian20ss
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  پروژه درس مهارت پایه
+</footer>
+
+</body>
+</html>

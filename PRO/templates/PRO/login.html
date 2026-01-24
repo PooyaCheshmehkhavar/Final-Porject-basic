@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>GreenCode | ورود</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Tahoma;
+  direction:rtl;
+  background:#eef2f0;
+  color:#222;
+}
+header{
+  background:#20500b;
+  padding:20px 0;
+}
+.header-card{
+  width:90%;
+  margin:auto;
+  background:#64e627;
+  border-radius:14px;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.header-card a{
+  color:#20500b;
+  text-decoration:none;
+  margin:0 8px;
+  font-size:14px;
+}
+.site-name{
+  font-size:24px;
+  font-weight:bold;
+  color:#20500b;
+}
+.main{
+  width:90%;
+  margin:30px auto;
+  display:flex;
+  gap:20px;
+}
+.box{
+  background:#fff;
+  border-radius:14px;
+  padding:22px;
+  width:100%;
+}
+h2{
+  margin-top:0;
+  color:#20500b;
+}
+label{
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+}
+input{
+  width:100%;
+  padding:9px;
+  margin-top:4px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+input:focus{
+  outline:none;
+  border-color:#20500b;
+}
+small{
+  font-size:12px;
+  color:#666;
+}
+button{
+  margin-top:16px;
+  padding:10px 18px;
+  background:#64e627;
+  color:#fff;
+  border:none;
+  border-radius:20px;
+  font-size:14px;
+  cursor:pointer;
+}
+footer{
+  margin-top:40px;
+  background:#64e627;
+  color:white;
+  text-align:center;
+  padding:14px;
+  font-size:13px;
+}
+.Error{
+  color: red;
+}
+.acc-butt{
+  margin-top:16px;
+  padding:10px 18px;
+  background:#64e627;
+  color:#fff;
+  border:none;
+  border-radius:20px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="header-card">
+    <div>
+    </div>
+    <div class="site-name">GreenCode</div>
+  </div>
+</header>
+<div class="main">
+  <div class="box">
+    <h2>ورود</h2>
+    {% if error %}
+        <div class="Error" dir="rtl">
+          {{ error }}
+        </div>
+      {% endif %}
+    <form method="post" action="{% url 'PRO:login' %}">
+      {% csrf_token %}
+      <label>نام کاربری</label>
+      <input type="text" name="username" required>
+      <label>رمز عبور</label>
+      <input type="text" name="password" required>
+<br>
+      <button type="submit">ورود</button>
+      <a class="acc-butt" href="{% url 'PRO:register' %}">حساب کاربری ندارید؟</a>
+    </form>
+  </div>
+</div>
+<footer>
+  پروژه درس مهارت پایه
+</footer>
+</body>
+</html>

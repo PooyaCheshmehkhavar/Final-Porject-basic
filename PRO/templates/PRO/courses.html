@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>GreenCode | دوره‌ها</title>
+<style>
+body{
+  margin:0;
+  font-family:Tahoma;
+  direction:rtl;
+  background:#eef2f0;
+  color:#222;
+}
+header{
+  background:#20500b;
+  padding:20px 0;
+}
+.header-card{
+  width:90%;
+  margin:auto;
+  background:#64e627;
+  border-radius:14px;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.header-card a{
+  color:#20500b;
+  margin:0 8px;
+  text-decoration:none;
+  font-size:14px;
+}
+.site-name{
+  font-size:24px;
+  font-weight:bold;
+  color:#20500b;
+}
+.main{
+  width:90%;
+  margin:30px auto;
+}
+.courses{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.course{
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  border:1px solid #ddd;
+  transition:0.2s;
+}
+.course:hover{
+  transform:translateY(-5px);
+  box-shadow:0 8px 14px rgba(0,0,0,0.15);
+}
+.course h3{
+  margin:0 0 6px;
+  color:#20500b;
+}
+.course p{
+  font-size:14px;
+  margin:0;
+}
+footer{
+  margin-top:40px;
+  background:#64e627;
+  color:white;
+  text-align:center;
+  padding:14px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="header-card">
+    <div>
+      <a href="{% url 'PRO:home' %}">خانه</a>
+    </div>
+    <div class="site-name">GreenCode</div>
+  </div>
+</header>
+<div class="main">
+  <h2 style="color:#20500b;">دوره‌ها</h2>
+  <div class="courses">
+    <div class="course"><h3>C++ مقدماتی</h3><p>شروع برنامه‌نویسی با C++</p></div>
+    <div class="course"><h3>C++ پیشرفته</h3><p>مفاهیم پیشرفته و حافظه</p></div>
+    <div class="course"><h3>C#</h3><p>برنامه‌نویسی شی‌ءگرا</p></div>
+    <div class="course"><h3>Python مقدماتی</h3><p>یادگیری پایه پایتون</p></div>
+    <div class="course"><h3>Python پیشرفته</h3><p>پروژه و ماژول‌ها</p></div>
+    <div class="course"><h3>HTML و CSS</h3><p>طراحی وب ساده</p></div>
+    <div class="course"><h3>الگوریتم</h3><p>تقویت منطق برنامه‌نویسی</p></div>
+    <div class="course"><h3>OOP</h3><p>مفاهیم شی‌ءگرایی</p></div>
+    <div class="course"><h3>SQL</h3><p>پایگاه داده</p></div>
+    <div class="course"><h3>پروژه عملی</h3><p>پیاده‌سازی پروژه</p></div>
+  </div>
+</div>
+<footer>
+  پروژه درس مهارت پایه
+</footer>
+</body>
+</html>
